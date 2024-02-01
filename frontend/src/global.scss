@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply font-semibold bg-white px-2 py-1 transition-colors ease-in-out duration-100 hover:bg-secondaryMain hover:text-white;
+}
+
+input {
+  @apply border-2 border-secondaryMain pl-2 py-1 rounded-md;
+}
+
+.registerForm > input,
+.registerForm > div > div > input {
+  @apply mb-3;
+}
