@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   const date = new Date().getFullYear();
   return (
-    <div className="bg-secondaryMain py-5 gap-5 flex sm:justify-around align-middle items-center text-white px-3 justify-between sm:px-0">
+    <div className="absolute bottom-0 w-full bg-secondaryMain py-5 gap-5 flex sm:justify-around align-middle items-center text-white px-3 justify-between sm:px-0">
       <h1 className=" text-xl sm:text-3xl  tracking-tight font-bold ">
         <Link to={"/"}>Hotel&Lay</Link>
       </h1>

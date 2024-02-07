@@ -18,7 +18,7 @@ declare global {
   }
 }
 
-const verifyToken = expressAsyncHandler(
+const protect = expressAsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token = req.cookies["jwt"];
     if (!token) {
@@ -37,4 +37,4 @@ const verifyToken = expressAsyncHandler(
   }
 );
 
-export default verifyToken;
+export default protect;

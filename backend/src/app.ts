@@ -1,14 +1,21 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv/config";
 import { connectToDB } from "./config/db";
 import { notFound, errorHandler } from "./middleware/errorMiddleware";
 import cookieParser from "cookie-parser";
 import path = require("path");
+import { v2 as cloudinary } from "cloudinary";
 
 dotenv;
 
 const app = express();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const PORT = process.env.PORT || 5000;
 
@@ -18,7 +25,9 @@ connectToDB()
   })
   .catch((err) => console.log(err));
 
+// Importing routers
 import userRouter from "./routes/userRoutes";
+import hotelRouter from "./routes/hotelRoutes";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +42,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../../frontend/dist/")));
 
 app.use("/api/users", userRouter);
+app.use("/api/hotels", hotelRouter);
+
+app.get("*", async (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 
 app.use(notFound);
 app.use(errorHandler);

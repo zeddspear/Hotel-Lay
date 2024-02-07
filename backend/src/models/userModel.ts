@@ -13,7 +13,7 @@ type userType = {
   checkPassword: (password: string) => Promise<boolean>;
 };
 
-const userSchema = new Schema({
+const userSchema = new Schema<userType>({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   email: { type: String, unique: true, required: true },

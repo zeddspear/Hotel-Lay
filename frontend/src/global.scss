@@ -6,11 +6,32 @@
   @apply font-semibold bg-white px-2 py-1 transition-colors ease-in-out duration-100 hover:bg-secondaryMain hover:text-white;
 }
 
-input {
+.btn2 {
+  @apply bg-secondaryMain text-white py-1 px-2 my-3 hover:bg-transparent hover:text-black transition-colors;
+}
+
+input,
+textarea,
+select {
   @apply border-2 border-secondaryMain pl-2 py-1 rounded-md;
 }
 
 .registerForm > input,
 .registerForm > div > div > input {
   @apply mb-3;
+}
+
+.formDetails {
+  & > input,
+  & > textarea {
+    @apply mb-3;
+
+    & + div > div > input {
+      @apply mb-3;
+    }
+  }
+}
+
+label {
+  @apply font-semibold mb-1;
 }

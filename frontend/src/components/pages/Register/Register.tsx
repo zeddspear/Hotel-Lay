@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useRegisterUserMutation } from "../../slices/userApiSlice";
-import { useAppDispatch } from "../../store/hooks";
-import { setUserInfo } from "../../slices/userSlice";
+import { useRegisterUserMutation } from "../../../slices/userApiSlice";
+import { useAppDispatch } from "../../../store/hooks";
+import { setUserInfo } from "../../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Spinner from "../../Spinner";
+import { Link } from "react-router-dom";
 
 function Register() {
   const {
@@ -16,7 +18,7 @@ function Register() {
 
   const [userExistsErr, setUserExistsErr] = useState<string>("");
 
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const dispatch = useAppDispatch();
 
@@ -41,8 +43,8 @@ function Register() {
   });
 
   return (
-    <div className="flex px-4 justify-center flex-col items-center min-h-screen">
-      <div className="flex flex-col justify-center p-5 gap-5 border rounded-md bg-slate-200 border-tertiaryMain max-w-[600px] min-w-[340px]">
+    <div className="flex px-4 justify-center flex-col items-center my-5 pt-6 pb-24 md:pt-6 md:my-5">
+      <div className="flex flex-col justify-center p-5 gap-5 border rounded-md bg-slate-200 border-tertiaryMain max-w-[600px] min-w-[280px]">
         <h2 className="text-2xl font-semibold">Create an Account</h2>
         <form
           className="registerForm flex justify-center flex-col w-full"
@@ -141,9 +143,22 @@ function Register() {
               {userExistsErr}
             </span>
           )}
-          <button type="submit" className="btn text-secondaryMain mt-5">
-            Submit
-          </button>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <button type="submit" className="btn text-secondaryMain mt-5">
+              Submit
+            </button>
+          )}
+          <p className="mt-5">
+            Already have an account?{" "}
+            <Link
+              to={"/auth/login"}
+              className={"text-secondaryMain font-semibold"}
+            >
+              Sign In Here
+            </Link>
+          </p>
         </form>
       </div>
     </div>

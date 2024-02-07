@@ -4,7 +4,7 @@ import {
   logoutUser,
   registerUser,
 } from "../controller/userController";
-import verifyToken from "../middleware/authMiddleware";
+import protect from "../middleware/protectMiddleware";
 
 const router = express.Router();
 
@@ -12,6 +12,6 @@ router.post("/register", ...registerUser);
 
 router.post("/auth", ...loginUser);
 
-router.post("/logout", verifyToken, logoutUser);
+router.post("/logout", protect, logoutUser);
 
 export default router;

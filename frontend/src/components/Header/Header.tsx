@@ -10,7 +10,7 @@ function Header() {
 
   const dispatch = useAppDispatch();
 
-  const [logoutUser] = useLogoutUserMutation();
+  const [logoutUser, { isLoading }] = useLogoutUserMutation();
   const navigate = useNavigate();
 
   const logoutHandler = async function () {
@@ -48,7 +48,13 @@ function Header() {
           <Link to={"/myhotels"} className=" text-white">
             My Hotels
           </Link>
-          <Link to={"/"} className="btn" onClick={logoutHandler}>
+          <Link
+            to={"/auth/login"}
+            className={`btn ${
+              isLoading ? "pointer-events-none text-gray-600" : ""
+            } `}
+            onClick={logoutHandler}
+          >
             Sign Out
           </Link>
         </div>

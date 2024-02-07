@@ -8,10 +8,11 @@ function Layout() {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative min-h-[100dvh]">
       <Header />
       {location.pathname.includes("register") ||
-      location.pathname.includes("login") ? null : (
+      location.pathname.includes("login") ||
+      location.pathname.includes("add-hotel") ? null : (
         <Hero />
       )}
       <Outlet />

@@ -10,12 +10,14 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Register from "./components/Register/Register.tsx";
-import SignIn from "./components/SignIn/SignIn.tsx";
-import Home from "./components/Home/Home.tsx";
-import SearchPage from "./components/SearchPage/SearchPage.tsx";
+import Register from "./components/pages/Register";
+import SignIn from "./components/pages/SignIn/SignIn.tsx";
+import Home from "./components/pages/Home/Home.tsx";
+import SearchPage from "./components/pages/SearchPage/SearchPage.tsx";
 import store from "./store/store.ts";
 import { Provider } from "react-redux";
+import AddHotel from "./components/pages/AddHotel/AddHotel.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,9 @@ const mainRouter = createBrowserRouter(
       <Route path="/search" element={<SearchPage />} />
       <Route path="/auth/register" element={<Register />} />
       <Route path="/auth/login" element={<SignIn />} />
+      <Route path="/" element={<PrivateRoute />}>
+        <Route path="/add-hotel" element={<AddHotel />} />
+      </Route>
       <Route path="*" element={<Navigate to={"/"} />} />
     </Route>
   )
