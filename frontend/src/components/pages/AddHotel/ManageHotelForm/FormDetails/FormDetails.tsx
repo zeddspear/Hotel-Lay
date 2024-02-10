@@ -8,7 +8,6 @@ function FormDetails() {
 
   return (
     <div className="formDetails pb-8 flex flex-col w-full  border-b-2 border-secondaryMain ">
-      <h2 className="my-5 text-2xl font-bold">Add Hotel</h2>
       <label htmlFor="name">Name</label>
       <input
         id="name"

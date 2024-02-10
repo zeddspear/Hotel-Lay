@@ -3,7 +3,8 @@ import expressAsyncHandler from "express-async-handler";
 import multer from "multer";
 import { postImgsToCloudinary } from "../utils/postImagesToCloud";
 import { UploadApiResponse } from "cloudinary";
-import Hotel, { hotelType } from "../models/hotelModel";
+import Hotel from "../models/hotelModel";
+import { hotelType } from "../shared/types";
 import { body, validationResult } from "express-validator";
 
 const storage = multer.memoryStorage();
@@ -89,9 +90,23 @@ export const postHotel = [
 
         res.status(201).send(hotelCreated);
       } catch (error) {
-        console.log(`Error happend while posting images ${error}`);
+        console.log(`Error happend while submitting hotel ${error}`);
         res.status(500).json({ message: "Something went wrong" });
       }
     }
   }),
 ];
+
+export const getHotels = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const hotels = await Hotel.find({ userId: req.user._id });
+      res.status(200).json(hotels);
+    } catch (error) {
+      console.log(
+        `Error happend while fetching hotels from the database ${error}`
+      );
+      res.status(500).json({ message: "Error occured while fetching hotels" });
+    }
+  }
+);

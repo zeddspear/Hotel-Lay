@@ -12,7 +12,8 @@ function Layout() {
       <Header />
       {location.pathname.includes("register") ||
       location.pathname.includes("login") ||
-      location.pathname.includes("add-hotel") ? null : (
+      location.pathname.includes("add-hotel") ||
+      location.pathname.includes("my-hotels") ? null : (
         <Hero />
       )}
       <Outlet />

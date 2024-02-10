@@ -35,3 +35,7 @@ select {
 label {
   @apply font-semibold mb-1;
 }
+
+.smallBox {
+  @apply border border-secondaryMain pl-2 pr-10 py-1 flex justify-start gap-2  items-center;
+}

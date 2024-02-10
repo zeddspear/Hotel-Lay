@@ -45,7 +45,7 @@ function Header() {
           <Link to={"/mybookings"} className=" text-white">
             My Bookings
           </Link>
-          <Link to={"/myhotels"} className=" text-white">
+          <Link to={"/my-hotels"} className=" text-white">
             My Hotels
           </Link>
           <Link

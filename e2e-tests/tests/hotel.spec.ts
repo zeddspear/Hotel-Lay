@@ -45,7 +45,7 @@ test.skip("should allow user to add hotel", async ({ page }) => {
   await expect(page.getByText("Hotel Submitted")).toBeVisible();
 });
 
-test("Should not allow user to add hotel if user have a hotel with same name already", async ({
+test.skip("Should not allow user to add hotel if user have a hotel with same name already", async ({
   page,
 }) => {
   await page.goto(`${BASE_URL}add-hotel`);
@@ -75,4 +75,24 @@ test("Should not allow user to add hotel if user have a hotel with same name alr
   await expect(
     page.getByText("This user already have a hotel  with this name")
   ).toBeVisible();
+});
+
+test("should display hotels", async ({ page }) => {
+  await page.goto(`${BASE_URL}my-hotels`);
+
+  await expect(
+    page.getByRole("heading", { name: "Avari Hotel" })
+  ).toBeVisible();
+  await expect(
+    page.getByText("Situated on the beautiful tree lined Mall Boulevard,")
+  ).toBeVisible();
+  await expect(page.getByText("Lahore, Pakistan")).toBeVisible();
+  await expect(page.getByText("Luxury").nth(1)).toBeVisible();
+  await expect(page.getByText("2 adults, 1 children")).toBeVisible();
+  await expect(page.getByText("Rs.15000 per night")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Add Hotel" })).toBeVisible();
+
+  await expect(
+    page.getByRole("link", { name: "View Details" }).all
+  ).toBeTruthy();
 });

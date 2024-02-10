@@ -52,6 +52,8 @@ function ManageHotelForm() {
           onSubmit={submitHandler}
           className="px-2 max-w-[650px] w-full min-w-[280px] flex justify-center items-center flex-col"
         >
+          <h2 className="my-5 text-3xl font-bold self-start">Add Hotel</h2>
+
           <FormDetails />
           <TypesHotel />
           <Facilities />
