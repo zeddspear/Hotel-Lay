@@ -19,6 +19,7 @@ import { Provider } from "react-redux";
 import AddHotel from "./components/pages/AddHotel/AddHotel.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import MyHotels from "./components/pages/MyHotels/MyHotels.tsx";
+import HotelDetails from "./components/pages/HotelDetails/HotelDetails.tsx";
 
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,9 @@ const mainRouter = createBrowserRouter(
       </Route>
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/my-hotels" element={<MyHotels />} />
+      </Route>
+      <Route path="/" element={<PrivateRoute />}>
+        <Route path="/my-hotels/:id" element={<HotelDetails />} />
       </Route>
 
       <Route path="*" element={<Navigate to={"/"} />} />

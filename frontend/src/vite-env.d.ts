@@ -31,4 +31,5 @@ type HotelFormType = {
   pricePerNight: number;
   starRating: number;
   imageFiles: FileList;
+  imgsURLs: string[];
 };
