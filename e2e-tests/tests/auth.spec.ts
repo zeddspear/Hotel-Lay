@@ -50,7 +50,9 @@ test("should allow user to register", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Sign Out" })).toBeVisible();
 });
 
-test("should not allow user to register", async ({ page }) => {
+test("should not allow user to register if it already exists", async ({
+  page,
+}) => {
   await page.goto(BASE_URL);
 
   await page.getByRole("link", { name: "Register" }).click();

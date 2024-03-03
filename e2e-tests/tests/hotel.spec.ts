@@ -96,3 +96,22 @@ test("should display hotels", async ({ page }) => {
     page.getByRole("link", { name: "View Details" }).all
   ).toBeTruthy();
 });
+
+test("should edit hotel", async ({ page }) => {
+  await page.goto(`${BASE_URL}my-hotels`);
+
+  await page.getByRole("link", { name: "View Details" }).nth(0).click();
+
+  await page.waitForSelector("[name='name']", { state: "attached" });
+  await expect(page.locator("[name='name']")).toHaveValue("Test");
+  await page.locator("[name='name']").fill("Test Updated");
+
+  await page.getByRole("button", { name: "Submit" }).click();
+  await expect(page.getByText("Hotel Updated")).toBeVisible();
+
+  await expect(page.locator("[name='name']")).toHaveValue("Test Updated");
+  await page.locator("[name='name']").fill("Test");
+
+  await page.getByRole("button", { name: "Submit" }).click();
+  await expect(page.getByText("Hotel Updated")).toBeVisible();
+});
