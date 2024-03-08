@@ -5,7 +5,7 @@ import {
 } from "../../../backend/src/shared/types.ts";
 
 const HOTEL_URL = "/api/my-hotels";
-const SEARCH_URL = "/api";
+const SEARCH_URL = "/api/hotels";
 
 export type hotelSearchParams = {
   destination?: string;

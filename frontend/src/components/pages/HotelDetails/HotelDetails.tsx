@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 function HotelDetails() {
   const { id } = useParams();
   return (
-    <div>
+    <div className="min-w-screen bg-red">
       <p>Hotel with id: {id}</p>
     </div>
   );

@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist/")));
 
 app.use("/api/users", userRouter);
 app.use("/api/my-hotels", hotelRouter);
-app.use("/api", searchHotelRoutes);
+app.use("/api/hotels", searchHotelRoutes);
 app.get("*", async (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
