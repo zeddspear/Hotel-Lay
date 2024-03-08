@@ -7,7 +7,7 @@ import SearchResultCard from "../../SearchResultCard";
 function SearchPage() {
   const Search = useSearchContext();
 
-  const [page, setPage] = useState<number>(1);
+  const [page] = useState<number>(1);
 
   const searchParams: hotelSearchParams = {
     destination: Search?.destination,
