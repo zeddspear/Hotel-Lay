@@ -1,3 +1,5 @@
+import SearchBar from "../SearchBar";
+
 function Hero() {
   return (
     <div className="w-full bg-secondaryMain text-white">
@@ -9,6 +11,7 @@ function Hero() {
           Search low prices on hotels for your dream vacation 🏨
         </p>
       </div>
+      <SearchBar />
     </div>
   );
 }

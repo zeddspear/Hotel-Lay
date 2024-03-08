@@ -19,8 +19,9 @@ import { Provider } from "react-redux";
 import AddHotel from "./components/pages/AddHotel/AddHotel.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import MyHotels from "./components/pages/MyHotels/MyHotels.tsx";
-import HotelDetails from "./components/pages/HotelDetails/HotelDetails.tsx";
-
+import MyHotelDetails from "./components/pages/MyHotelDetails";
+import { SearchContextProvider } from "./context/searchContext.tsx";
+import HotelDetails from "./components/pages/HotelDetails";
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -28,6 +29,7 @@ const mainRouter = createBrowserRouter(
       <Route path="/search" element={<SearchPage />} />
       <Route path="/auth/register" element={<Register />} />
       <Route path="/auth/login" element={<SignIn />} />
+      <Route path="/hotels/:id" element={<HotelDetails />} />
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/add-hotel" element={<AddHotel />} />
       </Route>
@@ -35,7 +37,7 @@ const mainRouter = createBrowserRouter(
         <Route path="/my-hotels" element={<MyHotels />} />
       </Route>
       <Route path="/" element={<PrivateRoute />}>
-        <Route path="/my-hotels/:id" element={<HotelDetails />} />
+        <Route path="/my-hotels/:id" element={<MyHotelDetails />} />
       </Route>
 
       <Route path="*" element={<Navigate to={"/"} />} />
@@ -46,7 +48,9 @@ const mainRouter = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={mainRouter} />
+      <SearchContextProvider>
+        <RouterProvider router={mainRouter} />
+      </SearchContextProvider>
     </Provider>
   </React.StrictMode>
 );
