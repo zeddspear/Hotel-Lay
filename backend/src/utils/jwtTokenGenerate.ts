@@ -8,7 +8,7 @@ function generateToken(res: Response, userID: string) {
 
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV_MODE === "production",
+    secure: process.env.NODE_ENV_MODE === "production" ? true : false,
     sameSite: "strict",
     maxAge: 1 * 24 * 60 * 60 * 1000,
   });
