@@ -1,15 +1,28 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import Hotel from "../models/hotelModel";
-import { hotelType, searchHotelsResponse } from "../shared/types";
+import { searchHotelsResponse } from "../shared/types";
 
 export const getHotels = expressAsyncHandler(
   async (req: Request, res: Response) => {
     try {
+      const query = constructSearchQuery(req.query);
+
+      let sortOptions = {};
+      switch (req.query.sortOption) {
+        case "starRating":
+          sortOptions = { starRating: -1 };
+          break;
+        case "pricePerNightAsc":
+          sortOptions = { pricePerNight: 1 };
+          break;
+        case "pricePerNightDesc":
+          sortOptions = { pricePerNight: -1 };
+          break;
+      }
+
       // Total hotels to show on a single page
       const pageSize = 5;
-
-      console.log(req.query);
 
       // Current page number
       const currentPage = Number(
@@ -18,16 +31,21 @@ export const getHotels = expressAsyncHandler(
       // Hotels to skip according to page number
       const skip = (currentPage - 1) * pageSize;
 
-      const hotels = await Hotel.find().skip(skip).limit(5);
+      const hotels = await Hotel.find(query)
+        .sort(sortOptions)
+        .skip(skip)
+        .limit(5);
 
-      const totalNumbersOfHotels = await Hotel.countDocuments();
+      const totalNumbersOfHotels = await Hotel.find(query)
+        .sort(sortOptions)
+        .countDocuments();
 
       const response: searchHotelsResponse = {
         hotels: hotels,
         pagination: {
           total: totalNumbersOfHotels,
           page: currentPage,
-          pages: totalNumbersOfHotels / pageSize,
+          pages: Math.ceil(totalNumbersOfHotels / pageSize),
         },
       };
 
@@ -38,3 +56,56 @@ export const getHotels = expressAsyncHandler(
     }
   }
 );
+
+const constructSearchQuery = (queryParams: any) => {
+  let constructedQuery: any = {};
+
+  if (queryParams.destination) {
+    constructedQuery.$or = [
+      { city: new RegExp(queryParams.destination, "i") },
+      { country: new RegExp(queryParams.destination, "i") },
+    ];
+  }
+
+  if (queryParams.adultCount) {
+    constructedQuery.adultCount = {
+      $gte: parseInt(queryParams.adultCount),
+    };
+  }
+
+  if (queryParams.childCount) {
+    constructedQuery.childCount = {
+      $gte: parseInt(queryParams.childCount),
+    };
+  }
+
+  if (queryParams.facilities) {
+    constructedQuery.facilities = {
+      $all: Array.isArray(queryParams.facilities)
+        ? queryParams.facilities
+        : [queryParams.facilities],
+    };
+  }
+
+  if (queryParams.types) {
+    constructedQuery.type = {
+      $in: Array.isArray(queryParams.types)
+        ? queryParams.types
+        : [queryParams.types],
+    };
+  }
+
+  if (queryParams.stars) {
+    const starRatings = parseInt(queryParams.stars.toString());
+
+    constructedQuery.starRating = { $lte: starRatings };
+  }
+
+  if (queryParams.maxPrice) {
+    constructedQuery.pricePerNight = {
+      $lte: parseInt(queryParams.maxPrice.toString()),
+    };
+  }
+
+  return constructedQuery;
+};

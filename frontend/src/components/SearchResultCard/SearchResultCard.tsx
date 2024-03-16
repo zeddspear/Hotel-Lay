@@ -20,9 +20,11 @@ function SearchResultCard({ hotel }: Props) {
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
             <span className="flex">
-              {Array.from({ length: hotel.starRating }).map(() => {
-                return <AiFillStar className="fill-yellow-400" />;
-              })}
+              {Array.from({ length: hotel.starRating }).map(
+                (_val, idx: number) => {
+                  return <AiFillStar className="fill-yellow-400" key={idx} />;
+                }
+              )}
             </span>
             <span className="text-sm text-gray-500">{hotel.type}</span>
           </div>
@@ -45,7 +47,10 @@ function SearchResultCard({ hotel }: Props) {
                 return;
               }
               return (
-                <span className="bg-secondaryMain p-2 rounded-lg font-bold text-xs whitespace-nowrap text-white">
+                <span
+                  key={idx}
+                  className="bg-secondaryMain p-2 rounded-lg font-bold text-xs whitespace-nowrap text-white"
+                >
                   {facility}
                 </span>
               );

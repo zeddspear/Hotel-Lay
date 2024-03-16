@@ -14,6 +14,11 @@ export type hotelSearchParams = {
   adultCount?: string;
   childCount?: string;
   page?: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string;
+  maxPrice?: string;
+  sortOption?: string;
 };
 
 const hotelApiSlice = apiSlice.injectEndpoints({
@@ -54,12 +59,22 @@ const hotelApiSlice = apiSlice.injectEndpoints({
     searchHotels: builder.query<searchHotelsResponse, hotelSearchParams>({
       query: (searchParams) => {
         const queryParams = new URLSearchParams();
+
         queryParams.append("destination", searchParams.destination || "");
         queryParams.append("checkIn", searchParams.checkIn || "");
         queryParams.append("checkOut", searchParams.checkOut || "");
         queryParams.append("adultCount", searchParams.adultCount || "");
         queryParams.append("childCount", searchParams.childCount || "");
         queryParams.append("page", searchParams.page || "");
+        searchParams.facilities?.forEach((facility) =>
+          queryParams.append("facilities", facility)
+        );
+        searchParams.types?.forEach((type) =>
+          queryParams.append("types", type)
+        );
+        queryParams.append("stars", searchParams.stars || "");
+        queryParams.append("maxPrice", searchParams.maxPrice || "");
+        queryParams.append("sortOption", searchParams.sortOption || "");
 
         return {
           url: `${SEARCH_URL}/search?${queryParams}`,

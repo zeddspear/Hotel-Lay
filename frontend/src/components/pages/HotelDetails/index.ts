@@ -1,3 +1,3 @@
-import HotelDetails from "../MyHotelDetails";
+import HotelDetails from "./HotelDetails";
 
 export default HotelDetails;

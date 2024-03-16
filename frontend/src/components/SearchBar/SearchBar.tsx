@@ -34,6 +34,18 @@ function SearchBar() {
     navigate("/search");
   };
 
+  function clearForm() {
+    resetSearchValues();
+  }
+
+  function resetSearchValues() {
+    setDestination("");
+    setCheckIn(new Date());
+    setCheckOut(new Date());
+    setAdultCount(1);
+    setChildCount(1);
+  }
+
   const minDate = new Date();
   const maxDate = new Date();
 
@@ -118,7 +130,13 @@ function SearchBar() {
           <button className="searchInputsBtns w-2/3 bg-blue-500" type="submit">
             Search
           </button>
-          <button className="searchInputsBtns w-1/3 bg-red-500">Clear</button>
+          <button
+            type="button"
+            onClick={clearForm}
+            className="searchInputsBtns w-1/3 bg-red-500"
+          >
+            Clear
+          </button>
         </div>
       </form>
     </div>
