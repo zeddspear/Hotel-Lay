@@ -52,6 +52,10 @@ label {
   @apply font-semibold px-5 py-1 text-white transition-colors ease-in-out duration-100 hover:bg-secondaryMain hover:text-white;
 }
 
+.bookNow {
+  @apply font-semibold px-5 py-1 text-white transition-colors ease-in-out duration-100 bg-blue-500 hover:bg-blue-400 hover:text-white;
+}
+
 .sliderStyle {
   background-color: #62466b;
 }

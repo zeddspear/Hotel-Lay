@@ -83,6 +83,14 @@ const hotelApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    getHotel: builder.query<hotelType, string>({
+      query: (id) => ({
+        url: `${SEARCH_URL}/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["Hotel"],
+    }),
   }),
 });
 
@@ -92,4 +100,5 @@ export const {
   useGetSingleHotelQuery,
   useUpdateHotelMutation,
   useSearchHotelsQuery,
+  useGetHotelQuery,
 } = hotelApiSlice;

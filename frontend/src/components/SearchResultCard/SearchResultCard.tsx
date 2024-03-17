@@ -16,7 +16,6 @@ function SearchResultCard({ hotel }: Props) {
         />
       </div>
       <div className="grid grid-rows-[1fr_2fr_1fr]">
-        {/* Todo details of hotel */}
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
             <span className="flex">

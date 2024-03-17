@@ -52,7 +52,7 @@ function SearchBar() {
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   return (
-    <div className="w-full flex justify-center px-5">
+    <div className="w-full flex justify-center px-5 shadow-md">
       <form
         onSubmit={handleSubmit}
         className="justify-center w-fit grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5  p-2 items-center gap-2 -mb-3 bg-secondaryMain text-black border-2 border-white"

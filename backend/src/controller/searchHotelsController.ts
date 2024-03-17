@@ -2,6 +2,33 @@ import { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import Hotel from "../models/hotelModel";
 import { searchHotelsResponse } from "../shared/types";
+import { param, validationResult } from "express-validator";
+
+export const getHotel = [
+  [param("id").notEmpty().withMessage("Hotel ID is required")],
+  expressAsyncHandler(async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    }
+
+    const id = req.params.id.toString();
+
+    try {
+      const hotel = await Hotel.findById(id);
+      if (!hotel) {
+        res
+          .status(400)
+          .json({ message: "Hotel not found in database with this ID" });
+      }
+      res.status(200).json(hotel);
+    } catch (error) {
+      console.log("Error occured while fetching Hotel: " + error);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }),
+];
 
 export const getHotels = expressAsyncHandler(
   async (req: Request, res: Response) => {
@@ -51,7 +78,7 @@ export const getHotels = expressAsyncHandler(
 
       res.status(200).json(response);
     } catch (error) {
-      console.log("Error occured while updated Hotel: " + error);
+      console.log("Error occured while fetching Hotels: " + error);
       res.status(500).json({ message: "Something went wrong" });
     }
   }
