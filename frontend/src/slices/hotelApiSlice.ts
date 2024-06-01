@@ -1,8 +1,10 @@
 import { apiSlice } from "./rootApiSlice";
 import {
   hotelType,
+  paymentIntentResponse,
   searchHotelsResponse,
 } from "../../../backend/src/shared/types.ts";
+import { BookingFormData } from "../components/pages/Booking/BookingForm/BookingForm.tsx";
 
 const HOTEL_URL = "/api/my-hotels";
 const SEARCH_URL = "/api/hotels";
@@ -91,6 +93,25 @@ const hotelApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Hotel"],
     }),
+    paymentIntent: builder.mutation<
+      paymentIntentResponse,
+      { id: string; numberOfNights: string }
+    >({
+      query: (data) => ({
+        url: `${SEARCH_URL}/${data.id}/booking/payment-intent`,
+        method: "POST",
+        credentials: "include",
+        body: data,
+      }),
+    }),
+    makeBooking: builder.mutation<any, BookingFormData>({
+      query: (data) => ({
+        url: `${SEARCH_URL}/${data.hotelId}/booking`,
+        method: "POST",
+        credentials: "include",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -101,4 +122,6 @@ export const {
   useUpdateHotelMutation,
   useSearchHotelsQuery,
   useGetHotelQuery,
+  usePaymentIntentMutation,
+  useMakeBookingMutation,
 } = hotelApiSlice;

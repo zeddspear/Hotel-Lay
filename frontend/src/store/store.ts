@@ -8,7 +8,9 @@ const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (defaultMiddleware) =>
-    defaultMiddleware().concat(apiSlice.middleware),
+    defaultMiddleware({
+      serializableCheck: false,
+    }).concat(apiSlice.middleware),
 });
 
 export default store;

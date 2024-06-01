@@ -60,7 +60,7 @@ function ManageHotelForm({
       formData.append("imageFiles", file);
     });
 
-    existingImageUrls.forEach((imgURL) => {
+    existingImageUrls?.forEach((imgURL) => {
       formData.append("imgsURLs", imgURL);
     });
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Spinner from "../../Spinner";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function SignIn() {
   const {
@@ -17,13 +18,14 @@ function SignIn() {
   const dispatch = useAppDispatch();
   const [userSignIn, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const signinHandler = handleSubmit(async (data) => {
     try {
       const res = await userSignIn(data).unwrap();
       dispatch(setUserInfo(res));
       toast.success("User Signed In");
-      navigate("/");
+      navigate(location?.state?.from?.pathname || "/");
     } catch (error: any) {
       toast.error(error.data.message);
     }

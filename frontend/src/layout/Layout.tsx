@@ -13,7 +13,8 @@ function Layout() {
       {location.pathname.includes("register") ||
       location.pathname.includes("login") ||
       location.pathname.includes("add-hotel") ||
-      location.pathname.includes("my-hotels") ? null : (
+      location.pathname.includes("my-hotels") ||
+      location.pathname.includes("hotels") ? null : (
         <Hero />
       )}
       <Outlet />

@@ -11,17 +11,19 @@ import {
 } from "react-router-dom";
 
 import Register from "./components/pages/Register";
-import SignIn from "./components/pages/SignIn/SignIn.tsx";
-import Home from "./components/pages/Home/Home.tsx";
-import SearchPage from "./components/pages/SearchPage/SearchPage.tsx";
+import SignIn from "./components/pages/SignIn";
+import Home from "./components/pages/Home";
+import HotelDetails from "./components/pages/HotelDetails";
+import Booking from "./components/pages/Booking";
+import SearchPage from "./components/pages/SearchPage";
 import store from "./store/store.ts";
 import { Provider } from "react-redux";
-import AddHotel from "./components/pages/AddHotel/AddHotel.tsx";
+import AddHotel from "./components/pages/AddHotel";
 import PrivateRoute from "./components/PrivateRoute.tsx";
-import MyHotels from "./components/pages/MyHotels/MyHotels.tsx";
+import MyHotels from "./components/pages/MyHotels";
 import MyHotelDetails from "./components/pages/MyHotelDetails";
 import { SearchContextProvider } from "./context/searchContext.tsx";
-import HotelDetails from "./components/pages/HotelDetails";
+
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -30,6 +32,7 @@ const mainRouter = createBrowserRouter(
       <Route path="/auth/register" element={<Register />} />
       <Route path="/auth/login" element={<SignIn />} />
       <Route path="/hotels/:id" element={<HotelDetails />} />
+      <Route path="/hotels/:id/booking" element={<Booking />} />
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/add-hotel" element={<AddHotel />} />
       </Route>
