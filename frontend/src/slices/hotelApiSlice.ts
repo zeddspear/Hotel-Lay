@@ -112,6 +112,13 @@ const hotelApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    lastAddedHotels: builder.query<hotelType[], void>({
+      query: () => ({
+        url: `${SEARCH_URL}/latest-hotels`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -124,4 +131,5 @@ export const {
   useGetHotelQuery,
   usePaymentIntentMutation,
   useMakeBookingMutation,
+  useLastAddedHotelsQuery,
 } = hotelApiSlice;

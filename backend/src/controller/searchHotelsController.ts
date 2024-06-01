@@ -3,6 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import Hotel from "../models/hotelModel";
 import {
   bookingType,
+  hotelType,
   paymentIntentResponse,
   searchHotelsResponse,
 } from "../shared/types";
@@ -182,6 +183,55 @@ export const makeBooking = expressAsyncHandler(
       await hotel?.save();
 
       res.status(200).json({ message: "Hotel booking done" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
+
+export const getBookedHotelsOfUser = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.user._id;
+
+    console.log("UserId: ", userId);
+
+    try {
+      const hotels = await Hotel.aggregate([
+        {
+          $unwind: "$bookings",
+        },
+        {
+          $match: { "bookings.userId": userId.toString() },
+        },
+        {
+          $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            city: { $first: "$city" },
+            country: { $first: "$country" },
+            imgsURLs: { $first: "$imgsURLs" },
+            bookings: { $push: "$bookings" },
+          },
+        },
+      ]);
+
+      if (hotels.length > 0) {
+        res.status(200).json(hotels);
+      }
+      res.status(400).json({ message: "No bookings found" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
+
+export const lastAddedHotels = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    try {
+      const hotels = await Hotel.find().sort({ createdAt: -1 }).limit(10);
+      res.status(200).json(hotels);
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Something went wrong" });

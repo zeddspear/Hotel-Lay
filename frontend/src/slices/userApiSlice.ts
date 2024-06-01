@@ -1,3 +1,4 @@
+import { hotelType } from "../../../backend/src/shared/types";
 import { apiSlice } from "./rootApiSlice";
 
 const USER_URL = "/api/users";
@@ -24,6 +25,13 @@ const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    getBookingsOfUser: builder.query<hotelType[], void>({
+      query: () => ({
+        url: `${USER_URL}/booked-hotels`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -31,4 +39,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
+  useGetBookingsOfUserQuery,
 } = userApiSlice;

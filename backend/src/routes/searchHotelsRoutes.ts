@@ -4,12 +4,15 @@ import {
   getHotels,
   paymentIntent,
   makeBooking,
+  lastAddedHotels,
 } from "../controller/searchHotelsController";
 import protect from "../middleware/protectMiddleware";
 
 const router = express.Router();
 
 router.get("/search", getHotels);
+
+router.get("/latest-hotels", lastAddedHotels);
 
 router.get("/:id", ...getHotel);
 

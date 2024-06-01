@@ -1,30 +1,28 @@
 import BookingForm from "./BookingForm";
 import { useAppSelector } from "../../../store/hooks";
 import { useParams } from "react-router-dom";
-import { useGetSingleHotelQuery } from "../../../slices/hotelApiSlice";
-import { usePaymentIntentMutation } from "../../../slices/hotelApiSlice";
+import {
+  useGetSingleHotelQuery,
+  usePaymentIntentMutation,
+} from "../../../slices/hotelApiSlice";
 import { useSearchContext } from "../../../context/searchContext";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { paymentIntentResponse } from "../../../../../backend/src/shared/types";
 import { Elements } from "@stripe/react-stripe-js";
 
+const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+
 function Booking() {
   const search = useSearchContext();
-
   const { userInfo, stripePromise } = useAppSelector(
     (state) => state.userSlice
   );
-
   const [numberOfNights, setNumberOfNights] = useState<number | null>(null);
-
   const [paymentIntent, setPaymentIntent] =
     useState<paymentIntentResponse | null>(null);
-
   const { id } = useParams();
-
-  const { data } = useGetSingleHotelQuery(id!);
-
+  const { data: hotelData } = useGetSingleHotelQuery(id!);
   const [makePaymentIntent, { isLoading: paymentIntentLoading }] =
     usePaymentIntentMutation();
 
@@ -32,13 +30,8 @@ function Booking() {
     if (search?.checkIn && search.checkOut) {
       let nights =
         Math.abs(search.checkOut.getTime() - search.checkIn.getTime()) /
-        (1000 * 60 * 60 * 24);
-      nights = Math.ceil(nights);
-      if (nights === 0) {
-        setNumberOfNights(1);
-      } else {
-        setNumberOfNights(nights);
-      }
+        MILLISECONDS_IN_DAY;
+      setNumberOfNights(nights === 0 ? 1 : Math.ceil(nights));
     }
   }, [search?.checkIn, search?.checkOut]);
 
@@ -48,18 +41,15 @@ function Booking() {
     }
   }, [numberOfNights]);
 
-  console.log("Hotel Search: ", search);
-
   async function createPaymentIntent() {
     try {
       const response = await makePaymentIntent({
         id: id!,
         numberOfNights: numberOfNights?.toString()!,
       }).unwrap();
-      console.log("response of payment intent: ", response);
       setPaymentIntent(response);
     } catch (error) {
-      console.log(error);
+      // Handle error properly
     }
   }
 
@@ -78,7 +68,7 @@ function Booking() {
                 <span className="block text-sm font-semibold text-gray-600">
                   Location:
                 </span>
-                {data?.name}, {data?.city}, {data?.country}
+                {hotelData?.name}, {hotelData?.city}, {hotelData?.country}
               </p>
               <div className="flex gap-3 font-bold w-full border-b border-gray-300 pb-1">
                 <p>

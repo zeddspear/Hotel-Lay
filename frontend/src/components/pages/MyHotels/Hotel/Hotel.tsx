@@ -8,7 +8,7 @@ import { hotelType } from "../../../../../../backend/src/shared/types.ts";
 
 function Hotel({ ...hotel }: hotelType) {
   return (
-    <div className="hotel border-2 flex flex-col gap-3 border-secondaryMain p-3 rounded-md">
+    <div className="hotel border-2 flex flex-col gap-3 border-secondaryMain p-3 rounded-md shadow-xl">
       <div className="hotel-top my-2">
         <h3 className="text-xl font-bold">{hotel.name}</h3>
         <p className="text-gray-600 whitespace-pre-line">{hotel.description}</p>

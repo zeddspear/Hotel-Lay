@@ -7,7 +7,7 @@ function FormDetails() {
   } = useFormContext<HotelFormType>();
 
   return (
-    <div className="formDetails pb-8 flex flex-col w-full  border-b-2 border-secondaryMain ">
+    <div className="formDetails pb-8 flex flex-col w-full  border-b-2 border-secondaryMain">
       <label htmlFor="name">Name</label>
       <input
         id="name"

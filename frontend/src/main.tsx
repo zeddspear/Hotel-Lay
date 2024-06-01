@@ -23,6 +23,7 @@ import PrivateRoute from "./components/PrivateRoute.tsx";
 import MyHotels from "./components/pages/MyHotels";
 import MyHotelDetails from "./components/pages/MyHotelDetails";
 import { SearchContextProvider } from "./context/searchContext.tsx";
+import BookedHotels from "./components/pages/BookedHotels";
 
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,9 @@ const mainRouter = createBrowserRouter(
       <Route path="/auth/login" element={<SignIn />} />
       <Route path="/hotels/:id" element={<HotelDetails />} />
       <Route path="/hotels/:id/booking" element={<Booking />} />
+      <Route path="/" element={<PrivateRoute />}>
+        <Route path="/mybookings" element={<BookedHotels />} />
+      </Route>
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/add-hotel" element={<AddHotel />} />
       </Route>
