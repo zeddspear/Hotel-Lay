@@ -34,6 +34,7 @@ function HotelDetails() {
     register,
     handleSubmit,
     setValue,
+    // @ts-ignore
     formState: { errors },
   } = useForm<GuestInfoFormData>({
     defaultValues: {

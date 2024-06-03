@@ -1,4 +1,3 @@
-import { is } from "date-fns/locale";
 import { hotelType } from "../../../../../backend/src/shared/types";
 import { useGetBookingsOfUserQuery } from "../../../slices/userApiSlice";
 import HotelCard from "./HotelCard";
