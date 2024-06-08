@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Spinner from "../../../Spinner";
 import { hotelType } from "../../../../../../backend/src/shared/types";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ManageHotelForm({
   isEditHotelId,
@@ -25,6 +26,8 @@ function ManageHotelForm({
   const { handleSubmit, reset, watch } = formMethods;
 
   const [addHotelToDb, { isLoading }] = useAddHotelMutation();
+
+  const navigate = useNavigate();
 
   const existingImageUrls = watch("imgsURLs");
 
@@ -52,7 +55,7 @@ function ManageHotelForm({
     formData.append("pricePerNight", FormDataJSON.pricePerNight.toString());
     formData.append("starRating", FormDataJSON.starRating.toString());
 
-    FormDataJSON.facilities.forEach((facility: string) => {
+    Array.from(FormDataJSON.facilities).forEach((facility: string) => {
       formData.append(`facilities`, facility);
     });
 
@@ -78,8 +81,12 @@ function ManageHotelForm({
       // If manage form is used for adding a new hotel then submit will make this POST request
       try {
         const res = await addHotelToDb(formData).unwrap();
-        console.log(res);
-        toast.success("Hotel Submitted");
+
+        if (res) {
+          console.log(res);
+          toast.success("Hotel Submitted");
+          navigate("/my-hotels");
+        }
       } catch (err: any) {
         console.log(err);
         toast.error(err.data.message);

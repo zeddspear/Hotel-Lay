@@ -128,7 +128,7 @@ function BookingForm({
         </div>
         {/* Test the functionality video time 14 hours 7 minutes */}
         {isLoading ? (
-          <Spinner />
+          <Spinner className="mt-5" />
         ) : (
           <button
             type="submit"

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { paymentIntentResponse } from "../../../../../backend/src/shared/types";
 import { Elements } from "@stripe/react-stripe-js";
+import Spinner from "../../Spinner";
 
 const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
@@ -54,7 +55,11 @@ function Booking() {
   }
 
   if (paymentIntentLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-full flex justify-center items-center px-5 min-h-screen">
+        <Spinner width={"w-[50px]"} height={"h-[50px]"} />
+      </div>
+    );
   }
 
   return (

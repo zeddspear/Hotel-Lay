@@ -8,6 +8,7 @@ import StarFilter from "../../FilterComponents/StarFilter";
 import HotelTypesFilter from "../../FilterComponents/TypesFilter";
 import FacillitiesFilter from "../../FilterComponents/FacilitiesFilter";
 import MaxPriceFilter from "../../FilterComponents/MaxPriceFilter";
+import Spinner from "../../Spinner";
 
 function SearchPage() {
   const Search = useSearchContext();
@@ -71,7 +72,11 @@ function SearchPage() {
   }
 
   if (isLoading || isFetching) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-full flex justify-center items-center px-5 min-h-screen">
+        <Spinner width={"w-[50px]"} height={"h-[50px]"} />
+      </div>
+    );
   }
 
   return (

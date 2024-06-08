@@ -230,7 +230,7 @@ export const getBookedHotelsOfUser = expressAsyncHandler(
 export const lastAddedHotels = expressAsyncHandler(
   async (req: Request, res: Response) => {
     try {
-      const hotels = await Hotel.find().sort({ createdAt: -1 }).limit(10);
+      const hotels = await Hotel.find().limit(10).sort({ createdAt: -1 });
       res.status(200).json(hotels);
     } catch (error) {
       console.log(error);

@@ -5,12 +5,14 @@ import Spinner from "../../Spinner/Spinner.tsx";
 import toast from "react-hot-toast";
 
 function MyHotels() {
-  const { data, isLoading, error } = useGetHotelsQuery();
+  const { data, isLoading, error } = useGetHotelsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   if (isLoading) {
     return (
-      <div className="h-screen flex justify-center items-center">
-        <Spinner />
+      <div className="w-full h-full flex justify-center items-center px-5 min-h-screen">
+        <Spinner width="w-[50px]" height="h-[50px]" />
       </div>
     );
   }

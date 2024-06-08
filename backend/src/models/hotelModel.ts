@@ -16,22 +16,25 @@ const bookingSchema = new Schema<bookingType>({
   totalCost: { type: Number, required: true },
 });
 
-const hotelSchema = new Schema<hotelType>({
-  userId: { type: String, required: true },
-  name: { type: String, required: true },
-  city: { type: String, required: true },
-  country: { type: String, required: true },
-  description: { type: String, required: true },
-  type: { type: String, required: true },
-  adultCount: { type: Number, required: true },
-  childCount: { type: Number, required: true },
-  facilities: [{ type: String, required: true }],
-  pricePerNight: { type: Number, required: true },
-  starRating: { type: Number, required: true, min: 1, max: 5 },
-  imgsURLs: [{ type: String, required: true }],
-  lastUpdated: { type: Date, required: true },
-  bookings: [bookingSchema],
-});
+const hotelSchema = new Schema<hotelType>(
+  {
+    userId: { type: String, required: true },
+    name: { type: String, required: true },
+    city: { type: String, required: true },
+    country: { type: String, required: true },
+    description: { type: String, required: true },
+    type: { type: String, required: true },
+    adultCount: { type: Number, required: true },
+    childCount: { type: Number, required: true },
+    facilities: [{ type: String, required: true }],
+    pricePerNight: { type: Number, required: true },
+    starRating: { type: Number, required: true, min: 1, max: 5 },
+    imgsURLs: [{ type: String, required: true }],
+    lastUpdated: { type: Date, required: true },
+    bookings: [bookingSchema],
+  },
+  { timestamps: true }
+);
 
 const Hotel = mongoose.model<hotelType>("hotel", hotelSchema);
 

@@ -68,9 +68,9 @@ function SignIn() {
             </span>
           )}
           {isLoading ? (
-            <Spinner />
+            <Spinner className={"mt-5"} />
           ) : (
-            <button type="submit" className="btn text-secondaryMain mt-5 ">
+            <button type="submit" className="btn text-secondaryMain mt-5">
               Sign In
             </button>
           )}

@@ -8,6 +8,7 @@ import { useSearchContext } from "../../../context/searchContext";
 import { useAppSelector } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Spinner from "../../Spinner";
 
 type GuestInfoFormData = {
   checkIn: Date;
@@ -54,7 +55,11 @@ function HotelDetails() {
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-full flex justify-center items-center px-5 min-h-screen">
+        <Spinner width={"w-[50px]"} height={"h-[50px]"} />
+      </div>
+    );
   }
 
   const onSignInClick = () => {

@@ -62,7 +62,7 @@ export const postHotel = [
     if (hotel) {
       res
         .status(400)
-        .json({ message: "This user already have a hotel  with this name" });
+        .json({ message: "This user already have a hotel with this name" });
       throw new Error("Hotel already exists with this name!");
     } else {
       try {
